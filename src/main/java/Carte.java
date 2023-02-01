@@ -32,6 +32,18 @@ public class Carte {
         this.readMapFile();
     }
 
+    public Map<Point, Boolean> getMap() {
+        return map;
+    }
+
+    public int getNbX() {
+        return nbX;
+    }
+
+    public int getNbY() {
+        return nbY;
+    }
+
     /**
      * Lire le fichier "carte.txt" et initialiser les variables {@link #nbX}, {@link #nbY}
      * et ajouter les key/value sur la {@link #map}
@@ -39,20 +51,21 @@ public class Carte {
     private void readMapFile() {
         List<String> lines = new ArrayList<>();
         try {
-            lines = Files.readAllLines(Paths.get("src/resources/carte.txt"), StandardCharsets.UTF_8);
+            lines = Files.readAllLines(Paths.get("src/main/resources/carte.txt"), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        this.nbX = lines.get(0).length();
-        this.nbY = lines.size();
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            for (int j = 0; j < line.length(); j++) {
-                Point point = new Point(j, i);
-                if (line.charAt(j) == ' ') {
-                    this.map.put(point, true);
-                } else if (line.charAt(j) == '#') {
-                    this.map.put(point, false);
+        } finally {
+            this.nbX = lines.get(0).length();
+            this.nbY = lines.size();
+            for (int i = 0; i < lines.size(); i++) {
+                String line = lines.get(i);
+                for (int j = 0; j < line.length(); j++) {
+                    Point point = new Point(j, i);
+                    if (line.charAt(j) == ' ') {
+                        this.map.put(point, true);
+                    } else if (line.charAt(j) == '#') {
+                        this.map.put(point, false);
+                    }
                 }
             }
         }

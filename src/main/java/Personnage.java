@@ -19,6 +19,7 @@ public class Personnage {
      * @param directions {@link String} Les directions de déplacement
      */
     public void move(Carte carte, String directions) {
+
         for (int i = 0; i < directions.length(); i++) {
             Point temporaryPosition = new Point(position);
             switch (directions.charAt(i)) {
